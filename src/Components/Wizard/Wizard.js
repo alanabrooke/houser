@@ -9,7 +9,7 @@ export default class Wizard extends Component {
         address: '',
         city: '',
         state: '',
-        zipcode: ''
+        zipcode: 0
     }
 this.handleChange = this.handleChange.bind(this);
 }
