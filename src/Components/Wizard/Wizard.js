@@ -1,28 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import store, { UPDATE_NAME, UPDATE_ADDRESS, UPDATE_CITY, UPDATE_STATE, UPDATE_ZIPCODE } from '../../store';
+
 
 export default class Wizard extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      property_name: "",
-      address: "",
-      city: "",
-      state: "",
-      zip: "",
-      image_url: "",
-      mortgage: "",
-      rent: ""
-    };
-  }
-y
+    constructor() {
+        super()
+        const reduxState = store.getState();
+        this.state = {
+          name: reduxState.name,
+          address: reduxState.address,
+          city: reduxState.city,
+          state: reduxState.state,
+          zipcode: reduxState.zipcode
+        }
+      }
   handleInputs = e => {
     let { name, value } = e.target;
     this.setState({ [name]: value });
     console.log(value);
   };
+  saveChanges = () => {
+    store.dispatch({
+      type: UPDATE_NAME,
+      payload: this.state.name
+    })
+
+    store.dispatch({
+      type: UPDATE_ADDRESS,
+      payload: this.state.address
+    })
+
+    store.dispatch({
+      type: UPDATE_CITY,
+      payload: this.state.city
+    })
+
+    store.dispatch({
+      type: UPDATE_STATE,
+      payload: this.state.state
+    })
+
+    store.dispatch({
+      type: UPDATE_ZIPCODE,
+      payload: this.state.zipcode
+    })
+  }
 
   handleAddButton = () => {
     const { property_name, address, city, state, zip, image_url, mortgage, rent } = this.state
